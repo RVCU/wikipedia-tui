@@ -1,0 +1,16 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+WikipediaTermClient	main.rb	/^class WikipediaTermClient$/;"	c
+ask_for_more	main.rb	/^    def ask_for_more$/;"	f
+ask_for_new_wiki_page	main.rb	/^    def ask_for_new_wiki_page$/;"	f
+decide_how_to_print	main.rb	/^    def decide_how_to_print(wiki_page_element = @wikipedia_page.summary)$/;"	f	class:WikipediaTermClient
+initialize	main.rb	/^    def initialize$/;"	f	class:WikipediaTermClient
+is_ext_url	main.rb	/^    def is_ext_url(link)$/;"	f	class:WikipediaTermClient
+main	main.rb	/^    def main$/;"	f
+print_img_from_url	main.rb	/^    def print_img_from_url(url)$/;"	f	class:WikipediaTermClient
+print_markdown	main.rb	/^    def print_markdown(markdown)$/;"	f	class:WikipediaTermClient
+set_wiki_page	main.rb	/^    def set_wiki_page(search_term)$/;"	f
