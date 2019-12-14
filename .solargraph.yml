@@ -11,5 +11,5 @@ domains: []
 reporters:
 - rubocop
 - require_not_found
-require_paths: []
+require_paths: ['../../.rbenv/versions/2.5.1/lib/ruby/gems/2.5.0/gems']
 max_files: 5000

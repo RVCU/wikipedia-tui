@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'wikipedia'
 require 'tty-prompt'
 require 'tty-pager'
@@ -15,29 +17,27 @@ class WikipediaTermClient
     def initialize
         @prompt = TTY::Prompt.new
         @pager = TTY::Pager.new
-        @elements = %w(summary text categories links extlinks images NewSearch)
+        @elements = %w[summary text categories links extlinks images NewSearch]
         @browser = ENV['BROWSER']
     end
 
-
     def decide_how_to_print(wiki_page_element = @wikipedia_page.summary)
-        #binding.pry
         case wiki_page_element
         when 'summary'
             print_markdown(@wikipedia_page.summary)
         when 'text'
             print_markdown(@wikipedia_page.text)
         when 'categories'
-            link = @prompt.select("which category would you like to search", @wikipedia_page.categories)
+            link = @prompt.select('which category would you like to search', @wikipedia_page.categories)
             set_wiki_page(link)
         when 'links'
-            link = @prompt.select("which link would you like to search", @wikipedia_page.links)
+            link = @prompt.select('which link would you like to search', @wikipedia_page.links)
             set_wiki_page(link)
         when 'extlinks'
-            link = @prompt.select("which link would you like to search", @wikipedia_page.extlinks)
+            link = @prompt.select('which link would you like to search', @wikipedia_page.extlinks)
             @prompt.yes?("Wanna open this link in #{@browser}?") && system("#{@browser} #{link}")
         when 'images'
-            image_link = @prompt.select("images", @wikipedia_page.images)
+            image_link = @prompt.select('images', @wikipedia_page.images)
             set_wiki_page(image_link)
             print_img_from_url(@wikipedia_page.main_image_url)
         when 'NewSearch'
@@ -46,12 +46,12 @@ class WikipediaTermClient
     end
 
     def print_markdown(markdown)
-        @converter = PandocRuby.new(markdown, :from => :mediawiki, :to => :markdown)
+        @converter = PandocRuby.new(markdown, from: :mediawiki, to: :markdown)
         contents = TTY::Markdown.parse(@converter.convert)
         @pager.page(contents)
     end
 
-    def is_ext_url(link)
+    def ext_url?(link)
         uri = URI.parse(link)
         uri.is_a?(URI::HTTP) || uri.is_a?(URI::HTTPS)
     rescue URI::InvalidURIError
@@ -59,21 +59,21 @@ class WikipediaTermClient
     end
 
     def print_img_from_url(url)
-        Tempfile.create(".image", ".") do |f| 
+        Tempfile.create('.image', '.') do |f|
             f.write HTTParty.get(url).body
-            Catpix::print_image f.path,
-                :limit_x => 0.5,
-                :limit_y => 0,
-                :center_x => true,
-                :center_y => true,
-                :bg => "grey",
-                :bg_fill => false,
-                :resolution => "high"
+            Catpix.print_image f.path,
+                               limit_x: 0.5,
+                               limit_y: 0,
+                               center_x: true,
+                               center_y: true,
+                               bg: 'grey',
+                               bg_fill: false,
+                               resolution: 'high'
         end
     end
 
     def ask_for_more
-        wiki_page_element = @prompt.select("More?", @elements)
+        wiki_page_element = @prompt.select('More?', @elements)
         if wiki_page_element == 'New Search'
             ask_for_new_wiki_page
         else
